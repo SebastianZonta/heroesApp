@@ -1,0 +1,58 @@
+<h1>Hero <small>Hero's name</small></h1>
+
+<div class="row">
+    <div class="col">
+        <button class="btn btn-danger" [routerLink]="['heros']">
+            <i class="fa fa-arrow-left"> </i>
+            Go back
+        </button>
+    </div>
+</div>
+
+<div class="row animnated fadeIn faster">
+    <form (ngSubmit)="save()" [formGroup]="heroForm">
+        <div class="form-group">
+            <label>ID</label>
+            <input placeholder="Record ID" type="text" class="form-control" formControlName="id" readonly />
+            <small class="form-text text-muted">This field is auto-generated</small>
+        </div>
+
+        <div class="form-group">
+            <label>Name</label>
+            <input placeholder="Name" type="text" class="form-control" formControlName="name" />
+        </div>
+
+        <div class="form-group">
+            <label>Power</label>
+            <input placeholder="Power" type="text" class="form-control" formControlName="power" />
+        </div>
+
+        <div class="form-group">
+            <label>Is alive</label>
+            <br />
+            @if(this.statusFormControl.value) {
+            <button class="btn btn-outline-success w-50" type="button" (click)="this.statusFormControl.setValue(false)">
+                <i class="fa fa-smile-wink"></i>
+            </button>
+            } @else {
+            <button class="btn btn-outline-danger w-50" type="button" (click)="this.statusFormControl.setValue(true)">
+                <i class="fa fa-dizzy"></i>
+            </button>
+            }
+        </div>
+
+        <hr />
+        <div class="form-group" style="display: flex; justify-content: center">
+            <button type="submit" class="btn btn-primary w-25">
+                <i class="fa fa-save"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+<pre>
+    Form valid: {{ this.heroForm.valid }}
+    Status: {{ this.heroForm.status }}
+
+    values: {{ this.heroForm.value | json }}
+</pre>
