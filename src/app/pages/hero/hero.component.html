@@ -9,22 +9,24 @@
     </div>
 </div>
 
-<div class="row animnated fadeIn faster">
-    <form (ngSubmit)="save()" [formGroup]="heroForm">
+<div class="row">
+    <form [formGroup]="heroForm" (ngSubmit)="save()">
         <div class="form-group">
             <label>ID</label>
             <input placeholder="Record ID" type="text" class="form-control" formControlName="id" readonly />
             <small class="form-text text-muted">This field is auto-generated</small>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" [ngClass]="{'animate__animated animate__shakeX': NameFormField}">
             <label>Name</label>
-            <input placeholder="Name" type="text" class="form-control" formControlName="name" />
+            <input placeholder="Name" type="text" class="form-control" formControlName="name"
+                [ngClass]="{'is-invalid': NameFormField}" />
         </div>
 
-        <div class="form-group">
+        <div class="form-group" [ngClass]="{'animate__animated animate__shakeX': PowerformField}">
             <label>Power</label>
-            <input placeholder="Power" type="text" class="form-control" formControlName="power" />
+            <input placeholder="Power" type="text" class="form-control" formControlName="power"
+                [ngClass]="{'is-invalid': PowerformField}" />
         </div>
 
         <div class="form-group">

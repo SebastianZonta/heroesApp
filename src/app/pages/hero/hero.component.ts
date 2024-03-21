@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Hero } from '../../models/hero.model';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -18,22 +18,49 @@ export class HeroComponent {
   hero: Hero = new Hero();
   statusFormControl = new FormControl(true, Validators.required);
   heroForm: FormGroup;
-  
   constructor(private formBuilder: FormBuilder, private herosService: HerosService){
     this.heroForm = this.formBuilder.group({
-      id: '1',
-      name: ['seba', Validators.required],
-      power: ['a', Validators.required],
+      id: '',
+      name: ['', Validators.required],
+      power: ['', Validators.required],
       isAlive: this.statusFormControl
     })
   }
 
   save(){
-    if(this.heroForm.invalid)
+    if(this.heroForm.invalid){
+      Object.values(this.heroForm.controls).forEach(control => {
+        if (control instanceof FormGroup) {
+          Object.values(control.controls).forEach(subControl => {
+            subControl.markAsTouched();
+          })
+        }
+        if (control.invalid) {
+          control.markAsTouched();
+        }
+      });
       return;
+    }
 
-    console.log(this.heroForm.value);
     let hero = new Hero(this.heroForm.value);
-    console.log(hero);
+    if(hero.id){
+      this.herosService.updateHero(hero);
+    } else{
+      this.herosService.createHero(hero).subscribe(resp => {
+        this.heroForm.reset(hero);
+      });
+    }
   }
+
+  public get NameFormField() : boolean {
+    let nameFormControl = this.heroForm.get('name')!;
+    return nameFormControl.invalid && nameFormControl.touched
+  }
+
+  
+  public get PowerformField() : boolean {
+    let powerFormControl = this.heroForm.get('power')!;
+    return powerFormControl.invalid && powerFormControl.touched;
+  }
+  
 }
