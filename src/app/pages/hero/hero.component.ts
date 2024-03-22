@@ -106,7 +106,7 @@ export class HeroComponent {
       },
       complete: () => {
         Swal.fire({
-          title: hero.name,
+          title: `The hero ${hero.name} was successfully updated!`,
           text: 'Your data was updated sucessfully',
           icon: 'success'
         });

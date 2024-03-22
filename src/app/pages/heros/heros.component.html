@@ -7,7 +7,13 @@
         </button>
     </div>
 </div>
-@if(heroesArray.length === 0){
+@if (isLoading) {
+<div class="alert alert-info text-center mt-3">
+    <h4 class="alert-heading"></h4>
+    <p><i class="fa fa-sync alt fa-spin fa-2x"></i></p>
+    <p class="mb-0">Wait a second</p>
+</div>
+} @else if(heroesArray.length === 0){
 <div class="alert alert-warning text-center mt-3">
     <h4 class="alert-heading">There are no records</h4>
     <p><i class="fa fa-exclamation fa-2x"></i></p>
@@ -36,16 +42,10 @@
             </td>
             <td>
                 <button class="btn btn-info me-3" [routerLink]="['/hero', hero.id]"><i class="fa fa-pen"></i></button>
-                <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                <button class="btn btn-danger" (click)="deleteHero(hero, $index)"><i class="fa fa-trash"></i></button>
             </td>
         </tr>
         }
     </tbody>
 </table>
 }
-
-<div class="alert alert-info text-center mt-3">
-    <h4 class="alert-heading"></h4>
-    <p><i class="fa fa-sync alt fa-spin fa-2x"></i></p>
-    <p class="mb-0">Wait a second</p>
-</div>

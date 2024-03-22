@@ -34,4 +34,8 @@ export class HeroesService {
   getHeroById(heroId: number): Observable<Hero>{
     return this.http.get<Hero>(`${environment.baseUrl}/hero/${heroId}`);
   }
+
+  deleteHero(heroId: number) : Observable<number>{
+    return this.http.delete<number>(`${environment.baseUrl}/hero/${heroId}`);
+  }
 }
