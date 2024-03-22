@@ -34,7 +34,6 @@ export class HerosComponent {
       denyButtonText: `Don't delete`
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log("Se quizo eliminar");
         this.heroesService.deleteHero(Number(hero.id)).subscribe({
           next: (data) => {
             this.heroesArray.splice(index, 1);
@@ -45,7 +44,6 @@ export class HerosComponent {
               text: `The application couldn\'t handle your request. Please contact an administrator: ${error.error.detail}`,
               icon: 'error'
             });
-            console.log(error);
           },
           complete: () => Swal.fire("The hero was successfully deleted!", "", "success")
         });
@@ -53,6 +51,5 @@ export class HerosComponent {
         Swal.fire("The hero won\' be deleted", "", "info");
       }
     });
-
   }
 }

@@ -35,7 +35,6 @@ export class HeroComponent {
 
     const id = this.route.snapshot.paramMap.get('id');
     if(id !== "new"){
-      console.log(id);
       this.heroesService.getHeroById(Number(id)).subscribe({
         error: error => {
           Swal.fire({
@@ -43,7 +42,6 @@ export class HeroComponent {
             text: `The application couldn\'t handle your request. Please contact an administrator: ${error.error.detail}`,
             icon: 'error'
           }).then(result => this.router.navigateByUrl('heros'));
-          console.log(error);
         },
         next: (data) => this.heroForm.reset(data)
       })
@@ -51,8 +49,7 @@ export class HeroComponent {
   }
 
   save(){
-    if(!this.validateForm())
-    {
+    if(!this.validateForm()){
       this.toastr.info('Please complete all the required fields');
       return;
     }
@@ -82,7 +79,6 @@ export class HeroComponent {
           text: `The application couldn\'t handle your request. Please contact an administrator: ${error.error.detail}`,
           icon: 'error'
         });
-        console.log(error);
       },
       complete: () => {
         Swal.fire({
@@ -102,7 +98,6 @@ export class HeroComponent {
           text: `The application couldn\'t handle your request. Please contact an administrator: ${error.error.detail}`,
           icon: 'error'
         });
-        console.log(error);
       },
       complete: () => {
         Swal.fire({
