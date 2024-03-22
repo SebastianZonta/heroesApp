@@ -7,7 +7,12 @@
         </button>
     </div>
 </div>
-
+@if(heroesArray.length === 0){
+<div class="alert alert-warning text-center mt-3">
+    <h4 class="alert-heading">There are no records</h4>
+    <p><i class="fa fa-exclamation fa-2x"></i></p>
+</div>
+} @else {
 <table class="table mt-3">
     <thead>
         <tr class="table-dark">
@@ -19,37 +24,28 @@
         </tr>
     </thead>
     <tbody>
+        @for (hero of heroesArray; track $index) {
         <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>mdo</td>
-            <td>mdo</td>
+            <th scope="row">{{$index + 1}}</th>
+            <td>{{hero.name}}</td>
+            <td>{{hero.power}}</td>
+            <td>
+                <span class="badge" [ngClass]="{'text-bg-success': hero.isAlive, 'text-bg-danger': !hero.isAlive}">
+                    {{hero.isAlive ? 'Alive' : "Dead"}}
+                </span>
+            </td>
+            <td>
+                <button class="btn btn-info me-3" [routerLink]="['/hero', hero.id]"><i class="fa fa-pen"></i></button>
+                <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+            </td>
         </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>fat</td>
-            <td>fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>twitter</td>
-            <td>twitter</td>
-        </tr>
+        }
     </tbody>
 </table>
-
+}
 
 <div class="alert alert-info text-center mt-3">
     <h4 class="alert-heading"></h4>
     <p><i class="fa fa-sync alt fa-spin fa-2x"></i></p>
     <p class="mb-0">Wait a second</p>
-</div>
-
-<div class="alert alert-warning text-center mt-3">
-    <h4 class="alert-heading">There are no records</h4>
-    <p><i class="fa fa-exclamation fa-2x"></i></p>
 </div>
